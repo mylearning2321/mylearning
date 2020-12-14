@@ -11,5 +11,14 @@ stage('static analysis ') {
         sh ' echo "my new jenkins"'
       }
     }
+    
+    stage("build & SonarQube analysis") {
+            agent any
+            steps {
+              withSonarQubeEnv('sonatrqube') {
+                sh 'mvn clean package sonar:sonar'
+              }
+            }
+          }
   }
 }
